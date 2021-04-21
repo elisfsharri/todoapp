@@ -1,0 +1,17 @@
+{
+  "english" : "English",
+  "italian" : "Italian",
+  "title" : "To-Do List App",
+  "addbutton" : "Add To-Do",
+  "all" : "All",
+  "complete" : "Complete",
+  "incomplete" : "Incomplete",
+  "createTitle" : "Create New To-Do",
+  "nameTodo" : "Name To-Do",
+  "insertImage" : "Insert Image",
+  "imageUploaded" : "Image Uploaded",
+  "resetFile" : "Reset",
+  "createButton" : "Create",
+  "editButton" : "Edit",
+  "emptyList" : "Create your first To-Do"
+}

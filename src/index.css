@@ -1,4 +1,5 @@
 body {
+  font-weight: bold;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +11,180 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+select {
+  border: 0;
+  font-size: medium;
+  outline: none;
+}
+
+.app {
+  text-align: center;
+}
+
+.logo {
+  height: 25px;
+  padding: 20px;
+}
+
+.todoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin: 10px;
+}
+
+.todoTitle {
+  flex-shrink: 0;
+  padding-right: 20px;
+}
+
+.addTodo {
+  flex-shrink: 2;
+  color: white;
+  background-color:#5F2EEA;
+  border-radius: 30px;
+  width: 200px;
+  height: 50px;
+  align-content: center;
+  outline: none;
+  cursor: pointer;
+}
+
+.todoFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.language {
+  position: absolute;
+  top: 10px;
+  right: 10%;
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.filterElement {
+  padding: 0 20px;
+}
+
+.nav {
+  color: grey;
+  cursor: pointer;
+}
+
+.activeNav {
+  cursor: pointer;
+}
+
+.disabledNav {
+  color: grey;
+  cursor: context-menu;
+}
+
+.emptyList {
+  min-height: 20.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  border-bottom: solid rgba(0, 0, 0, 0.2) 0.1px;
+  margin-bottom: 1px;
+  background-color: white;
+  transition: ease;
+}
+
+.todoItem.selected {
+  background-color: #DED3FF;
+  text-decoration: line-through grey;
+}
+
+.todoText {
+  flex-grow: 5;
+  text-align: left;
+  margin-left: 10px;
+  color: rgba(82, 82, 82);
+}
+
+.todoIcons {
+  display: flex;
+  justify-content: right;
+}
+
+.popup {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 10%;
+  bottom: 10%;
+  z-index: 1;
+  background-color: white;
+  text-align: center;
+  border-radius: 25px;
+  outline: none;
+  padding: 15px;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.input {
+  padding: 25px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  height: 100px;
+  border: dashed grey;
+  border-radius: 15px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.imageUploaded {
+  display: flex;
+  align-items: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  height: 150px;
+  border: dashed grey;
+  border-radius: 15px;
+  font-weight: normal;
+}
+
+.uploadDiv {
+  width: 50%;
+  border-radius: 15px;
+  align-items: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  cursor: pointer;
+}
+
+.createButton {
+  color: white;
+  background-color:#5F2EEA;
+  border-radius: 30px;
+  width: 50%;
+  min-width: 150px;
+  height: 50px;
+  align-content: center; 
+  outline: none;
+  cursor: pointer;
 }
