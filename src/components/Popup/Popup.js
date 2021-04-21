@@ -78,7 +78,6 @@ const Popup = ({
         </h4>
         <br />
         <TextField
-          data-testid='textField'
           required
           fullWidth
           label={t('nameTodo')}
@@ -86,6 +85,7 @@ const Popup = ({
           value={text}
           ref={textRef}
           onChange={onNameChange}
+          inputProps={{ 'data-testid': 'textField' }}
         />
         {
           file.length===0

@@ -34,12 +34,12 @@ const Language = () => {
         src={icon}
       />
       <Select
-        data-testid='language'
         native
         color='secondary'
         IconComponent={ExpandMoreIcon}
         value={language}
         onChange={handleChange}
+        inputProps={{ 'data-testid': 'language' }}
       >
         <option value='en'>
           {t('english')}
