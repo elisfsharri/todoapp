@@ -15,6 +15,7 @@ function App() {
   const [modalStatus, setModalStatus] = useState(false)
   const [update, setUpdate] = useState(false)
   const [text, setText] = useState('')
+  const [initialName, setInitialName] = useState(text)
   const [editMode, setEditMode] = useState(false)
   const [index, setIndex] = useState()
   const [data, setData] = useState([])
@@ -38,9 +39,30 @@ function App() {
 
   useEffect(todoData, [update])
 
+  /*
+  
+  Works fine with public URL but not with the one from the backend
+
+  const todoData = async () => {
+    try {
+      const fetchResponse = await fetch('https://jsonplaceholder.typicode.com/todos')
+      const dataResponse = await fetchResponse.json()
+      setData(dataResponse)  
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    todoData()
+  }, [update])
+
+  */
+
   var arraySize = 0
 
-  data.map((entry, i) => {
+  data.map((entry) => {
     if (!filter || filterValue === entry.complete) arraySize++
     return null
   })
@@ -55,21 +77,19 @@ function App() {
 
   const closeModal = () => {
     setModalStatus(false)
+    setInitialName('')
     setText('')
     setEditMode(false)
   }
 
   const editName = (input) => {
     setText(input)
+    setInitialName(input)
     setEditMode(true)
   }
 
   const getIndex = (input) => {
     setIndex(input)
-  }
-
-  const filterOn = () => {
-    setFilterValue(true)
   }
 
   const onPageChange = (event, value) => {
@@ -124,8 +144,8 @@ function App() {
         />
        
         <Navigation 
-          filterOn={filterOn}
           setFilter={setFilter}
+          setFilterValue={setFilterValue}
           setCurrentPage={setCurrentPage}
           arraySize={arraySize}
         />
@@ -160,6 +180,7 @@ function App() {
         <Popup 
           index={index}
           text={text}
+          initialName={initialName}
           editMode={editMode}
           modalStatus={modalStatus}
           openModal={openModal}

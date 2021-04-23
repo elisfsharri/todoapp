@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
       
-const Navigation = ({ filterOn, setFilter, setCurrentPage, arraySize }) => {
+const Navigation = ({ setFilter, setFilterValue, setCurrentPage, arraySize }) => {
 
   const [dotAll, setDotAll] = useState('●')
   const [dotComplete, setDotComplete] = useState('')
@@ -25,7 +25,7 @@ const Navigation = ({ filterOn, setFilter, setCurrentPage, arraySize }) => {
 
   const filterComplete = () => {
     setFilter(true)
-    filterOn()
+    setFilterValue(true)
     setDotAll('')
     setDotComplete('●')
     setDotIncomplete('')
@@ -37,7 +37,7 @@ const Navigation = ({ filterOn, setFilter, setCurrentPage, arraySize }) => {
 
   const filterIncomplete = () => {
     setFilter(true)
-    filterOn()
+    setFilterValue(false)
     setDotAll('')
     setDotComplete('')
     setDotIncomplete('●')

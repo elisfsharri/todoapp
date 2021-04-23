@@ -58,6 +58,7 @@ const Todo = ({
       isDragDisabled={dragStatus}
       draggableId={`draggable-${index}`}
       index={index} 
+      data-testid='todoItem'
     >
       {provided => (
         <div 

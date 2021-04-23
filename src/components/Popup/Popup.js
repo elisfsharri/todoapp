@@ -8,6 +8,7 @@ const Popup = ({
   modalStatus,
   closeModal,
   text,
+  initialName,
   index,
   onNameChange,
   handleUpdate,
@@ -15,6 +16,7 @@ const Popup = ({
 }) => {
 
   const [file, setFile] = useState([])
+  const [message, setMessage] = useState('')
 
   const textRef = useRef(null)
 
@@ -25,44 +27,57 @@ const Popup = ({
   }
 
   const submitData = () => {
-    fetch('http://localhost:8000/tasks/',
-      {
-        method : 'post',
-        headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify({ title : text })
-      }
-    )
-    .then(handleUpdate)
-    .catch(err => console.log(err))
+    if (text && text !== initialName) {
+      fetch('http://localhost:8000/tasks/',
+        {
+          method : 'post',
+          headers : {'Content-Type' : 'application/json'},
+          body : JSON.stringify({ title : text })
+        }
+      )
+      .then(handleUpdate)
+      .catch(err => console.log(err))
+    }
   }
 
   const editData = () => {
-    fetch(`http://localhost:8000/tasks/${index}/`,
-      {
-        method : 'put',
-        headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify({ title : text })
-      }
-    )
-    .then(handleUpdate)
-    .catch(err => console.log(err))
+    if (text && text !== initialName) {
+      fetch(`http://localhost:8000/tasks/${index}/`,
+        {
+          method : 'put',
+          headers : {'Content-Type' : 'application/json'},
+          body : JSON.stringify({ title : text })
+        }
+      )
+      .then(handleUpdate)
+      .catch(err => console.log(err))
+    }
   }
 
   const handleClose = () => {
     resetFile()
+    setMessage('')
     closeModal()
   }
 
   const handleSubmit = () => {
-    submitData()
-    closeModal()
+    setMessage(t('emptySubmit'))
+    if (text) {
+      submitData()
+      setMessage('')
+      closeModal()
+    }
   }
 
   const handleEdit = () => {
-    editData()
-    closeModal()
+    setMessage(t('emptyEdit'))
+    if (text && text !== initialName) {
+      editData()
+      setMessage('')
+      closeModal()
+     }
   }
-
+  
   return (
     <Modal
       data-testid='modal'
@@ -76,7 +91,9 @@ const Popup = ({
         >
           ✕
         </h4>
-        <br />
+        <div className='disabledNav'>
+          {message}
+        </div>
         <TextField
           required
           fullWidth
@@ -140,14 +157,15 @@ const Popup = ({
           ?
           <button 
             data-testid='createButton'
-            className='createButton'
+            className='formButton'
             onClick={handleSubmit}
           >
             {t('createButton')}
           </button>
           :
           <button 
-            className='createButton'
+            data-testid='editButton'
+            className='formButton'
             onClick={handleEdit}
           >
             {t('editButton')}

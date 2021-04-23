@@ -13,5 +13,7 @@
   "resetFile" : "Ripristina",
   "createButton" : "Creare",
   "editButton" : "Modificare",
-  "emptyList" : "Create vostra prima To-Do"
+  "emptyList" : "Create vostra prima To-Do",
+  "emptySubmit" : "Scriva qualcosa per favore",
+  "emptyEdit" : "Ma perché Luigi ?"
 }

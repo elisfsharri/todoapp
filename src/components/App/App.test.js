@@ -24,7 +24,7 @@ describe('Language bar tests', () => {
 
 describe('Add button tests', () => { 
   
-  test('add to do button exists', () => {
+  test('add button exists', () => {
     expect(screen.getByTestId('addTodo')).toBeInTheDocument()
   })
 
@@ -32,30 +32,5 @@ describe('Add button tests', () => {
     expect(screen.queryByTestId('modal')).not.toBeInTheDocument()
     fireEvent.click(screen.getByTestId('addTodo'))
     expect(screen.getByTestId('modal')).toBeInTheDocument()
-  })
-})
-
-describe('Modal tests', () => { 
-
-  beforeEach(() => {
-    fireEvent.click(screen.getByTestId('addTodo'))
-  })
-  
-  test('textfield exists', () => {
-    expect(screen.getByTestId('textField')).toBeInTheDocument()
-  })
-  
-  /*
-  In the future I want to make sure that when the modal opens the focus moves to testfield.
-
-  test('textfield is focused', () => {
-    expect(document.activeElement).toEqual(screen.getByTestId('textField'))
-  })
-  */
-
-  test('textfield gets the input correctly', () => {
-    const textFieldValue = screen.getByTestId('textField')
-    fireEvent.change(textFieldValue, {target: {value: 'todo'}})
-    expect(textFieldValue.value).toBe('todo')
   })
 })

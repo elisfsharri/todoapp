@@ -15,15 +15,17 @@ const TodoList = ({
 }) => {
 
   const dataArray = data.map((entry, i) => {
-    if (!filter || filterValue === entry.complete) {
+    if (!filter || (filterValue === entry.complete)) {
       return entry
     }
     return null
-  }).filter(el => {
+  })
+
+  const filteredDataArray = dataArray.filter(el => {
     return el !== null && el !== '';
   })
 
-  const filteredArray = dataArray.map((entry, i) => {
+  const filteredArray = filteredDataArray.map((entry, i) => {
     if (i>=(currentPage-1)*pageSize && i<currentPage*pageSize)
       return <Todo 
         key={i}
@@ -46,6 +48,7 @@ const TodoList = ({
     <Droppable droppableId='droppable-1'>
       {provided => (
         <Box 
+          data-testid='todoList'
           mx='auto' 
           width='95%' 
           minHeight='17.5rem'

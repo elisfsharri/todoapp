@@ -177,7 +177,7 @@ select {
   cursor: pointer;
 }
 
-.createButton {
+.formButton {
   color: white;
   background-color:#5F2EEA;
   border-radius: 30px;

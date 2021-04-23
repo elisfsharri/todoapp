@@ -13,5 +13,7 @@
   "resetFile" : "Reset",
   "createButton" : "Create",
   "editButton" : "Edit",
-  "emptyList" : "Create your first To-Do"
+  "emptyList" : "Create your first To-Do",
+  "emptySubmit" : "Write something please",
+  "emptyEdit" : "No change ?"
 }
