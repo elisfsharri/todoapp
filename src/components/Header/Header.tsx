@@ -1,8 +1,13 @@
+import { FC, MouseEventHandler } from 'react'
 import { Grid, Typography, Button } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import useStyles from '../Styles/Styles'
 
-const Header = ({ openModal }) => {
+type HeaderProps = {
+  openModal: MouseEventHandler
+}
+
+const Header: FC<HeaderProps> = ({ openModal }) => {
 
   const classes = useStyles()
   const { t } = useTranslation()

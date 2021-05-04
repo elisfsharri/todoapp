@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Select, Avatar } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -23,9 +23,9 @@ const Language = () => {
     setIcon(Italy)
   }
 
-  const handleChange = (event) => {
-    i18n.changeLanguage(event.target.value)
-    setLanguage(event.target.value)
+  const handleChange = (event: ChangeEvent<{value: unknown}>): void => {
+    i18n.changeLanguage(event.target.value as string)
+    setLanguage(event.target.value as string)
     setAvatar()
   }
 

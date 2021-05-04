@@ -1,25 +1,28 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-      
-const Navigation = ({ setFilter, setFilterValue, setCurrentPage, arraySize }) => {
+import Typography from '@material-ui/core/Typography'
+import useStyles from '../Styles/Styles'
+
+const Navigation = ({ setFilter, setFilterValue, setCurrentPage, initialArraySize }) => {
+
+  const classes = useStyles()
+  const { t } = useTranslation()
 
   const [dotAll, setDotAll] = useState('●')
   const [dotComplete, setDotComplete] = useState('')
   const [dotIncomplete, setDotIncomplete] = useState('')
-  const [allStyle, setAllStyle] = useState('activeNav')
-  const [completeStyle, setCompleteStyle] = useState('nav')
-  const [incompleteStyle, setIncompleteStyle] = useState('nav')
-
-  const { t } = useTranslation()
+  const [allStyle, setAllStyle] = useState(classes.activeNav)
+  const [completeStyle, setCompleteStyle] = useState(classes.nav)
+  const [incompleteStyle, setIncompleteStyle] = useState(classes.nav)
 
   const filterAll = () => {
     setFilter(false)
     setDotAll('●')
     setDotComplete('')
     setDotIncomplete('')
-    setAllStyle('activeNav')
-    setCompleteStyle('nav')
-    setIncompleteStyle('nav')
+    setAllStyle(classes.activeNav)
+    setCompleteStyle(classes.nav)
+    setIncompleteStyle(classes.nav)
     setCurrentPage(1)
   }
 
@@ -29,9 +32,9 @@ const Navigation = ({ setFilter, setFilterValue, setCurrentPage, arraySize }) =>
     setDotAll('')
     setDotComplete('●')
     setDotIncomplete('')
-    setAllStyle('nav')
-    setCompleteStyle('activeNav')
-    setIncompleteStyle('nav')
+    setAllStyle(classes.nav)
+    setCompleteStyle(classes.activeNav)
+    setIncompleteStyle(classes.nav)
     setCurrentPage(1)
   }
 
@@ -41,40 +44,43 @@ const Navigation = ({ setFilter, setFilterValue, setCurrentPage, arraySize }) =>
     setDotAll('')
     setDotComplete('')
     setDotIncomplete('●')
-    setAllStyle('nav')
-    setCompleteStyle('nav')
-    setIncompleteStyle('activeNav')
+    setAllStyle(classes.nav)
+    setCompleteStyle(classes.nav)
+    setIncompleteStyle(classes.activeNav)
     setCurrentPage(1)
   }
 
   return (
-    <div className='filter'>
-      <div className='filterElement' >
-        <p 
-          onClick={filterAll} 
-          className={arraySize ? allStyle : 'disabledNav'}
+    <div className={classes.filter}>
+      <div className={classes.filterElement} >
+        <Typography
+          variant='h6'
+          onClick={filterAll}
+          className={initialArraySize ? allStyle : classes.disabledNav}
         >
           {t('all')}
-        </p>
-        <h3>{arraySize ? dotAll : null}</h3>
+        </Typography>
+        <h3>{initialArraySize ? dotAll : null}</h3>
       </div>
-      <div className='filterElement' >
-        <p 
-          onClick={filterComplete} 
-          className={arraySize ? completeStyle : 'disabledNav'}
+      <div className={classes.filterElement} >
+        <Typography
+          variant='h6'
+          onClick={filterComplete}
+          className={initialArraySize ? completeStyle : classes.disabledNav}
         >
           {t('complete')}
-        </p>
-        <h3>{arraySize ? dotComplete : null}</h3>
+        </Typography>
+        <h3>{initialArraySize ? dotComplete : null}</h3>
       </div>
-      <div className='filterElement' >
-        <p 
-          onClick={filterIncomplete} 
-          className={arraySize ? incompleteStyle : 'disabledNav'}
+      <div className={classes.filterElement} >
+        <Typography
+          variant='h6'
+          onClick={filterIncomplete}
+          className={initialArraySize ? incompleteStyle : classes.disabledNav}
         >
           {t('incomplete')}
-        </p>
-        <h3>{arraySize ? dotIncomplete : null}</h3>
+        </Typography>
+        <h3>{initialArraySize ? dotIncomplete : null}</h3>
       </div>
     </div>
   )

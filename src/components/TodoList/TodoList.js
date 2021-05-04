@@ -59,7 +59,7 @@ const TodoList = ({
           {provided.placeholder}
         </Box>
       )}
-   </Droppable>
+    </Droppable>
   )
 }
 

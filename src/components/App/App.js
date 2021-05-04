@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Box } from '@material-ui/core'
+import { ThemeProvider, Container, Typography } from '@material-ui/core'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
-import Logo from '../../images/Logo.png'
-import Language from '../Language/Language'
-import Header from '../Header/Header'
+import Theme from '../Styles/Theme'
+import useStyles from '../Styles/Styles'
+import Title from '../Title/Title'
+import Header from '../Header/Header.tsx'
 import Navigation from '../Navigation/Navigation'
 import TodoList from '../TodoList/TodoList'
 import Footer from '../Footer/Footer.tsx'
@@ -12,10 +13,13 @@ import Popup from '../Popup/Popup'
 
 function App() {
 
+  const classes = useStyles()
+  const { t } = useTranslation()
+
   const [modalStatus, setModalStatus] = useState(false)
   const [update, setUpdate] = useState(false)
   const [text, setText] = useState('')
-  const [initialName, setInitialName] = useState(text)
+  const [initialText, setInitialText] = useState(text)
   const [editMode, setEditMode] = useState(false)
   const [index, setIndex] = useState()
   const [data, setData] = useState([])
@@ -23,8 +27,6 @@ function App() {
   const [filterValue, setFilterValue] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(5)
-
-  const { t } = useTranslation()
 
   const handleUpdate = () => {
     setUpdate(!update)
@@ -60,6 +62,7 @@ function App() {
 
   */
 
+  var initialArraySize = data.length
   var arraySize = 0
 
   data.map((entry) => {
@@ -77,14 +80,14 @@ function App() {
 
   const closeModal = () => {
     setModalStatus(false)
-    setInitialName('')
+    setInitialText('')
     setText('')
     setEditMode(false)
   }
 
   const editName = (input) => {
     setText(input)
-    setInitialName(input)
+    setInitialText(input)
     setEditMode(true)
   }
 
@@ -129,58 +132,55 @@ function App() {
 
 
   return (
-    <div className='app'>
-      <img src={Logo} alt='Lasting Dynamics' className='logo' />
-      <Box
-        mx='auto'
-        width='80%'
-        minWidth={400}
-        minHeight={600}
-        borderRadius={15}
-      >
-        <Language />
-        <Header 
-          openModal={openModal}
-        />
-       
-        <Navigation 
-          setFilter={setFilter}
-          setFilterValue={setFilterValue}
-          setCurrentPage={setCurrentPage}
-          arraySize={arraySize}
-        />
-        <DragDropContext onDragEnd={onDragEnd}>
-          {
-          data.length
-          ?
-          <TodoList 
-            data={data}
-            filter={filter}
-            filterValue={filterValue}         
+    <ThemeProvider theme={Theme}>
+      <Container className={classes.app}>
+        <Title />
+        <Container>
+          <Header
+            openModal={openModal}
+          />
+          <Navigation 
+            setFilter={setFilter}
+            setFilterValue={setFilterValue}
+            setCurrentPage={setCurrentPage}
+            initialArraySize={initialArraySize}
+          />
+          <DragDropContext onDragEnd={onDragEnd}>
+            {
+              data.length
+              ?
+              <TodoList 
+                data={data}
+                filter={filter}
+                filterValue={filterValue}         
+                currentPage={currentPage}
+                pageSize={pageSize}
+                openModal={openModal}
+                handleUpdate={handleUpdate}
+                editName={editName}
+                getIndex={getIndex}
+              />
+              :
+              <div className={classes.emptyList} >
+                <Typography variant='h5' >
+                  {t('emptyList')}
+                </Typography>
+              </div>
+            }
+          </DragDropContext>
+          <Footer 
             currentPage={currentPage}
             pageSize={pageSize}
-            openModal={openModal}
-            handleUpdate={handleUpdate}
-            editName={editName}
-            getIndex={getIndex}
+            onPageChange={onPageChange}
+            changePageSize={changePageSize}
+            arraySize={arraySize}
           />
-          :
-          <div className='emptyList' >
-            {t('emptyList')}
-          </div>
-          }
-        </DragDropContext>
-        <Footer 
-          currentPage={currentPage}
-          pageSize={pageSize}
-          onPageChange={onPageChange}
-          changePageSize={changePageSize}
-          arraySize={arraySize}
-        />
+        </Container>
         <Popup 
           index={index}
           text={text}
-          initialName={initialName}
+          setText={setText}
+          initialText={initialText}
           editMode={editMode}
           modalStatus={modalStatus}
           openModal={openModal}
@@ -188,8 +188,8 @@ function App() {
           onNameChange={onNameChange}
           handleUpdate={handleUpdate}
         />
-      </Box>
-    </div>
+      </Container>
+    </ThemeProvider>
   )
 }
 

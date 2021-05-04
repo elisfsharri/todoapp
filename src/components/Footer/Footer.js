@@ -1,10 +1,19 @@
+import useStyles from '../Styles/Styles'
 import Select from '@material-ui/core/Select'
 import Pagination from '@material-ui/lab/Pagination'
-      
-const Footer = ({ currentPage, onPageChange, pageSize, changePageSize, arraySize }) => {
+
+const Footer = ({
+  currentPage,
+  onPageChange,
+  pageSize,
+  changePageSize,
+  arraySize
+}) => {
+
+  const classes = useStyles()
 
   return (
-    <div className='todoFooter'>
+    <div className={classes.todoFooter}>
       <Select
         native
         disabled={arraySize===0}
@@ -19,7 +28,7 @@ const Footer = ({ currentPage, onPageChange, pageSize, changePageSize, arraySize
         <option value={20} >20</option>
       </Select>
       <Pagination 
-        color='secondary'
+        className={classes.pagination}
         page={currentPage}
         count={Math.ceil(arraySize/pageSize)}
         onChange={onPageChange}

@@ -1,9 +1,12 @@
 import { useRef, memo } from 'react'
-import { IconButton, Checkbox, Divider, Avatar } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
-import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import { IconButton, Checkbox, Divider, Avatar, Typography } from '@material-ui/core'
 import { Draggable } from 'react-beautiful-dnd'
+import clsx from 'clsx'
+import useStyles from '../Styles/Styles'
+import Delete from '../../images/Delete.png'
+import Edit from '../../images/Edit.png'
+import Check from '../../images/Check.png'
+import Uncheck from '../../images/Uncheck.png'
 
 const Todo = ({ 
   index,
@@ -18,6 +21,7 @@ const Todo = ({
   handleUpdate
 }) => {
 
+  const classes = useStyles()
   const itemRef = useRef(null)
 
   const editItem = () => {
@@ -29,7 +33,7 @@ const Todo = ({
   const deleteItem = () => {
     fetch(`http://localhost:8000/tasks/${itemId}/`,
       {
-        method : 'delete'
+        method: 'delete'
       }
     )
     .then(handleUpdate)
@@ -39,9 +43,9 @@ const Todo = ({
   const editStatus = () => {
     fetch(`http://localhost:8000/tasks/${itemId}/`,
      {
-       method : 'put',
-       headers : {'Content-Type' : 'application/json'},
-       body : JSON.stringify(
+       method: 'put',
+       headers: {'Content-Type' : 'application/json'},
+       body: JSON.stringify(
           { 
             title : itemRef.current.innerText,
             complete : !status
@@ -62,7 +66,7 @@ const Todo = ({
     >
       {provided => (
         <div 
-          className={status?'todoItem selected':'todoItem'}
+          className={status ? clsx(classes.todoItem, classes.selected) : classes.todoItem}
           id={index}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -70,32 +74,33 @@ const Todo = ({
         >
           <Checkbox
             color='primary'
-            icon={<CheckCircleIcon />}
-            checkedIcon={<CheckCircleIcon />}
+            icon={<img src={Uncheck} alt='Uncheck' />}
+            checkedIcon={<img src={Check} alt='Check' />}
             checked={status}
             onChange={editStatus}
           />
-          <Avatar 
+          <Avatar
             alt={text}
             src={image}
           />
-          <p 
-            className='todoText'
+          <Typography
+            variant='body1'
+            className={classes.todoText}
             ref={itemRef}
             id={itemId}
           >
             {text}
-          </p>
+          </Typography>
           <IconButton onClick={editItem}>
-            <EditIcon color='primary'/>
+            <img src={Edit} alt='Edit Button' />
           </IconButton>
           <IconButton onClick={deleteItem}>
-            <DeleteIcon color='secondary'/>
+            <img src={Delete} alt='Delete Button' />
           </IconButton>
           <Divider />
         </div>
       )}
-  </Draggable>
+    </Draggable>
   )
 }
 
