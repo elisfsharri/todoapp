@@ -32,6 +32,7 @@ const TodoList = ({
         index={i}
         itemId={entry.id}
         text={entry.title}
+        image={`https://picsum.photos/id/${entry.id+9}/200`}
         status={entry.complete}
         dragStatus={filter}
         openModal={openModal}

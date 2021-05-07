@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import { useTranslation } from 'react-i18next'
 import Theme from '../Styles/Theme'
 import useStyles from '../Styles/Styles'
+import Landing from '../Landing/Landing'
 import Title from '../Title/Title'
 import Header from '../Header/Header.tsx'
 import Navigation from '../Navigation/Navigation'
@@ -16,6 +17,7 @@ function App() {
   const classes = useStyles()
   const { t } = useTranslation()
 
+  const [route, setRoute] = useState('landing')
   const [modalStatus, setModalStatus] = useState(false)
   const [update, setUpdate] = useState(false)
   const [text, setText] = useState('')
@@ -28,12 +30,16 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(5)
 
+  const changeRoute = () => {
+    setRoute('')
+  }
+
   const handleUpdate = () => {
     setUpdate(!update)
   }
    
   const todoData = () => {
-    fetch('http://localhost:8000/tasks/')
+    fetch('https://jsonplaceholder.typicode.com/todos')
     .then(response => response.json())
     .then(res => setData(res))
     .catch(err => console.log(err))
@@ -133,62 +139,70 @@ function App() {
 
   return (
     <ThemeProvider theme={Theme}>
-      <Container className={classes.app}>
-        <Title />
-        <Container>
-          <Header
+      {
+        route === 'landing'
+        ?
+        <Landing 
+          changeRoute={changeRoute}
+        />
+        :
+        <Container className={classes.app}>
+          <Title />
+          <Container>
+            <Header
+              openModal={openModal}
+            />
+            <Navigation 
+              setFilter={setFilter}
+              setFilterValue={setFilterValue}
+              setCurrentPage={setCurrentPage}
+              initialArraySize={initialArraySize}
+            />
+            <DragDropContext onDragEnd={onDragEnd}>
+              {
+                data.length
+                ?
+                <TodoList 
+                  data={data}
+                  filter={filter}
+                  filterValue={filterValue}         
+                  currentPage={currentPage}
+                  pageSize={pageSize}
+                  openModal={openModal}
+                  handleUpdate={handleUpdate}
+                  editName={editName}
+                  getIndex={getIndex}
+                />
+                :
+                <div className={classes.emptyList} >
+                  <Typography variant='h5' >
+                    {t('emptyList')}
+                  </Typography>
+                </div>
+              }
+            </DragDropContext>
+            <Footer 
+              currentPage={currentPage}
+              pageSize={pageSize}
+              onPageChange={onPageChange}
+              changePageSize={changePageSize}
+              arraySize={arraySize}
+            />
+          </Container>
+          <Popup 
+            index={index}
+            text={text}
+            setText={setText}
+            initialText={initialText}
+            editMode={editMode}
+            modalStatus={modalStatus}
             openModal={openModal}
-          />
-          <Navigation 
-            setFilter={setFilter}
-            setFilterValue={setFilterValue}
-            setCurrentPage={setCurrentPage}
-            initialArraySize={initialArraySize}
-          />
-          <DragDropContext onDragEnd={onDragEnd}>
-            {
-              data.length
-              ?
-              <TodoList 
-                data={data}
-                filter={filter}
-                filterValue={filterValue}         
-                currentPage={currentPage}
-                pageSize={pageSize}
-                openModal={openModal}
-                handleUpdate={handleUpdate}
-                editName={editName}
-                getIndex={getIndex}
-              />
-              :
-              <div className={classes.emptyList} >
-                <Typography variant='h5' >
-                  {t('emptyList')}
-                </Typography>
-              </div>
-            }
-          </DragDropContext>
-          <Footer 
-            currentPage={currentPage}
-            pageSize={pageSize}
-            onPageChange={onPageChange}
-            changePageSize={changePageSize}
-            arraySize={arraySize}
+            closeModal={closeModal}
+            onNameChange={onNameChange}
+            handleUpdate={handleUpdate}
           />
         </Container>
-        <Popup 
-          index={index}
-          text={text}
-          setText={setText}
-          initialText={initialText}
-          editMode={editMode}
-          modalStatus={modalStatus}
-          openModal={openModal}
-          closeModal={closeModal}
-          onNameChange={onNameChange}
-          handleUpdate={handleUpdate}
-        />
-      </Container>
+      }
     </ThemeProvider>
   )
 }

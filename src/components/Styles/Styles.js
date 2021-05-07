@@ -1,9 +1,29 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => createStyles({
+  landing: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    textAlign: 'center'
+  },
+  academyLogo: {
+    width: '25%',
+    minWidth: 300
+  },
+  academyText: {
+    width: '70%',
+    minWidth: 300,
+    padding: 10
+  },
   app: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   titleBar: {
