@@ -21,6 +21,7 @@ function App() {
   const [modalStatus, setModalStatus] = useState(false)
   const [update, setUpdate] = useState(false)
   const [text, setText] = useState('')
+  const [image, setImage] = useState([])
   const [initialText, setInitialText] = useState(text)
   const [editMode, setEditMode] = useState(false)
   const [index, setIndex] = useState()
@@ -193,6 +194,8 @@ function App() {
             index={index}
             text={text}
             setText={setText}
+            image={image}
+            setImage={setImage}
             initialText={initialText}
             editMode={editMode}
             modalStatus={modalStatus}

@@ -10,20 +10,21 @@ const Landing = ({ changeRoute }) => {
     <div className={classes.landing} >
       <img src={AcademyLogo} alt='Lasting Dynamics' className={classes.academyLogo} />
       <div className={classes.academyText} >
-      <Typography variant='h2' gutterBottom >
+        <Typography variant='h2' gutterBottom >
           Lasting Dynamics March 2021 Academy project
         </Typography>
         <Typography variant='body2' >
-          The academy project has been modified a little. 
-          Normally there would be a local API. 
-          However, right now a public API has been provided.
-          Will add local storage soon.
+          The academy project has been modified a little. <br/>
+          Normally there would be a local API. <br/>
+          However, right now a public API has been provided. <br/>
+          Because of that many actions don't work for now. <br/>
+          Will add local storage soon to solve that issue. <br/>
         </Typography>
       </div>
-      <Button 
+      <Button
         variant='outlined'
         color='primary'
-        onClick={changeRoute} 
+        onClick={changeRoute}
       >
         Continue
       </Button>

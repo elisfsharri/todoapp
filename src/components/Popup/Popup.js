@@ -11,6 +11,8 @@ const Popup = ({
   closeModal,
   text,
   setText,
+  image,
+  setImage,
   initialText,
   index,
   onNameChange,
@@ -21,13 +23,12 @@ const Popup = ({
   const classes = useStyles()
   const { t } = useTranslation()
 
-  const [file, setFile] = useState([])
   const [message, setMessage] = useState('')
 
   const textRef = useRef(null)
   
   const resetFile = () => {
-    setFile([])
+    setImage([])
   }
 
   const submitData = () => {
@@ -70,20 +71,20 @@ const Popup = ({
 
   const handleSubmit = () => {
     setMessage(t('emptySubmit'))
-    resetFile()
     if (text) {
       submitData()
       setMessage('')
+      resetFile()
       closeModal()
     }
   }
 
   const handleEdit = () => {
     setMessage(t('emptyEdit'))
-    resetFile()
     if (text && text !== initialText) {
       editData()
       setMessage('')
+      resetFile()
       closeModal()
     }
   }
@@ -139,14 +140,14 @@ const Popup = ({
           {message}
         </Typography>
         {
-          file.length===0
+          image.length===0
           ?
           <Dropzone
             multiple={false}
             accept="image/*"
             onDrop={
               acceptedFiles => {
-                setFile(
+                setImage(
                   Object.assign(acceptedFiles[0], 
                     {
                       preview: URL.createObjectURL(acceptedFiles[0])
@@ -175,7 +176,7 @@ const Popup = ({
           :
           <div className={classes.imageUploaded}>
             <img 
-              src={file.preview} 
+              src={image.preview} 
               alt='uploaded' 
               className={clsx(classes.uploadDiv, classes.uploadImage)} 
               style = {{
